@@ -1,18 +1,36 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const merge = require('webpack-merge');
 
-const base = require('./webpack.config.base');
 
-const config = merge(base, {
+module.exports = {
+  entry: './src/index.js',
+  devServer: {
+    contentBase: './public'
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.pug",
-      filename: 'index.html',
+      title: 'Development',
+      template: "./src/template/index.pug",
       minify: false
     })
   ],
-});
-
-module.exports = config;
+  output: {
+    filename: 'build/bundle.js',
+    path: path.resolve(__dirname, 'public/')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.pug$/,
+        use: [
+          {
+            loader: "pug-loader",
+            options: {
+              pretty: true
+            }
+          }
+        ]
+      }
+    ]
+  }
+};

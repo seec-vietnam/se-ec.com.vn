@@ -1,0 +1,4 @@
+<Files ~ ".(gif|jpe?g|png|ico|js|css|php)$">
+  Header set Cache-Control "max-age=0"
+  Header set Pragma "no-cache"
+</Files>

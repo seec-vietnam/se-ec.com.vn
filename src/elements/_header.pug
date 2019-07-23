@@ -1,0 +1,58 @@
+block append header
+  #mobile-nav-toggle
+    span
+    span
+    span
+  #nav-mobile
+    ul.nav-menu
+      li
+        a(href='/')
+          img(src='img/logo-white.png', alt='', title='')
+      li
+        a.active(href='#seec') {{ language.home }}
+      li
+        a(href='#about') {{ language.about }}
+      li
+        a(href='#services') {{ language.services }}
+      li
+        a(href='#team') {{ language.team }}
+      li
+        a(href='#contact') {{ language.contact }}
+      
+      li.menu-has-children
+        a(href='javascript:') {{datalanguage}}
+        ul
+          li(@click="languagecountry('vi')")
+            a(href='javascript:' v-text="language.LangVietnamese")
+          li(@click="languagecountry('ja')")
+            a(href='javascript:' v-text="language.LangJapanese")
+          li(@click="languagecountry('en')")
+            a(href='javascript:' v-text="language.LangEnglish")
+  header#header
+    .container
+      #logo.pull-left
+        a(href='/')
+          img(src='img/logo-white.png', alt='', title='')
+      nav#nav-menu-container
+        ul.nav-menu
+          li
+            a.active(href='#seec') {{ language.home }}
+          li
+            a(href='#about') {{ language.about }}
+          li
+            a(href='#services') {{ language.services }}
+          li
+            a(href='#team') {{ language.team }}
+          li
+            a(href='#contact') {{ language.contact }}
+          
+          li.menu-has-children
+            a(href='javascript:') {{datalanguage}}
+            ul
+              li(@click="languagecountry('vi')")
+                a(href='javascript:' v-text="language.LangVietnamese")
+              li(@click="languagecountry('ja')")
+                a(href='javascript:' v-text="language.LangJapanese")
+              li(@click="languagecountry('en')")
+                a(href='javascript:' v-text="language.LangEnglish")
+
