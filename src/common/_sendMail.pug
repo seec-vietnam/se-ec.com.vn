@@ -1,0 +1,92 @@
+.
+  <?php
+  session_start();
+
+  if ($_SESSION['ticket'] == $_POST['ticket'] && !empty($_POST['ticket'])) {
+    session_destroy();
+    mail_send($_POST);
+  } else {
+    header("Location:./");
+    exit;
+  }
+
+  function mail_send($postdata){
+
+    mb_language("japanese");
+    mb_internal_encoding("UTF-8");
+
+    $subject    = "お問い合わせありがとうございます。";
+    $to_enduser = $postdata['mail'];
+
+    $from_email = "info@".$_SERVER["SERVER_NAME"];   //info@ドメイン名
+    $from_name  = ""; //クライアント名
+    $bcc_email_client   = "!{MAIL}"; //クライアントメールアドレスBCC
+    $from    = sprintf("From:%s<%s>\n", mb_encode_mimeheader($from_name, 'ISO-2022-JP'), $from_email);
+    $from   .= sprintf("Bcc:%s",  $bcc_email_client);
+    $body    = <<< EOD
+
+  %s様
+  花葬儀のお問い合わせ、ありがとうございます。
+
+  ===============================================
+  お問い合わせ内容は下記の通りです。
+  ===============================================
+
+  【スタイルについて】
+  %s
+
+  【お名前】
+  %s
+
+  【電話番号】
+  %s
+
+  【メールアドレス】
+  %s
+
+
+  ※このメールアドレスは送信専用アドレスとなるためご返信いただいても対応することができません
+
+  EOD;
+
+    $body = sprintf(
+      $body,
+      $postdata['name'],
+      $postdata['style'],
+      $postdata['name'],
+      $postdata['tel'],
+      $postdata['mail']
+    );
+
+    $params = '-f' . $from_email;
+    @mb_send_mail($to_enduser, $subject, $body, $from, $params);
+
+    // email2log API用のパラメータ
+    $e2l_query = array(
+      'email_to' => $to_enduser, // ユーザーのメールアドレス
+      'email_from' => $bcc_email_client, // クライアントのメールアドレス
+      'domain' => $_SERVER['SERVER_NAME'],
+      'url' => $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"],
+      'ip' => $_SERVER["REMOTE_ADDR"],
+      'ua' => $_SERVER['HTTP_USER_AGENT']
+    );
+    // パラメータを形成
+    $e2l_query = http_build_query($e2l_query);
+    // パラメータを付与
+    $e2l_get_url = 'https://sfa.se-ec.co.jp/datagets/mail.php?' . $e2l_query;
+    // ヘッダーの設定
+    $e2l_headers = array(
+      'User-Agent: PHP/' . PHP_VERSION,
+    );
+    // file_get_contentsのオプション設定
+    $e2l_opts = array(
+      'http' => array(
+        'header' => implode("\r\n", $e2l_headers) . "\r\n",
+        'content' => $e2l_query,
+        'method' => 'GET',
+      )
+    );
+    // file_get_contentsでapiを叩く
+    $e2l_send = file_get_contents($e2l_get_url, false, stream_context_create($e2l_opts));
+  }
+  ?>

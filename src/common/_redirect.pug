@@ -1,0 +1,19 @@
+.
+  <?php
+  // PC
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+
+  if ( (strpos( $ua , 'iPhone' ) !== false) || (strpos( $ua , 'Android' ) !== false) ) {
+    $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+    $arrayUrl = parse_url($url);
+    $url = $arrayUrl['path'] . 'sp/';
+    if (!empty($_GET)) {
+      foreach ($_GET as $k => $v) {
+        $param[] = "$k=$v";
+      }
+      $url .= '?' . implode('&' , $param);
+    }
+    header("Location:$url");
+    exit;
+  }
+  ?>

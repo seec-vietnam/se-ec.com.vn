@@ -1,0 +1,68 @@
+//- PC、SP版 共通layout.pug
+
+-
+  //- TITLE
+  const TITLE = "SEEC Việt Nam";
+
+  //- KEYWORDS
+  const KEYWORDS = "SEEC Việt Nam";
+
+  //- DESCRIPTION
+  const DESCRIPTION = "SEEC Việt Nam";
+
+  //- 電話番号
+  const TEL = "電話";
+
+  //- メールアドレス
+  const MAIL = "mail@se-ec.co.jp";
+
+block vars
+  -
+    //- var isPage = "";
+
+block php_include
+  include ./_phpProcess.pug
+
+doctype html
+html(lang="vi" id=htmlId class=isPage)
+  head
+    block meta
+      title #{TITLE}
+      meta(charset="utf-8")
+      link(rel='icon', type='image/png', href='img/favicon.png')
+
+      meta(name="description" content=DESCRIPTION)
+      meta(name="keywords" content=KEYWORDS)
+      meta(name="format-detection" content="telephone=no")
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    block link
+      link(rel="canonical" href!= "<?php echo CANONICAL ?>")
+      link(href="css/reset.css" rel="stylesheet")
+      link(href="css/slick.css" rel="stylesheet")
+      link(href="css/animate.css" rel="stylesheet")
+      link(href="css/module.css" rel="stylesheet")
+      link(href="css/layout.css" rel="stylesheet")
+    block head-script
+  //- ここまでhead
+
+  body
+    .loading
+    #page
+      block header
+
+      block content
+
+      block footer
+
+    block script
+      script(src="js/jquery-3.4.1.min.js")
+      script(src="js/slick.min.js")
+      script(src="js/wow.min.js")
+      script(src="js/particles.min.js")
+      script(src="js/language.js")
+      script(src="js/vue.js")
+      script(src="js/default.js")
+
+  //- ここまでbody
+//- ここまでhtml

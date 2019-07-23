@@ -1,0 +1,15 @@
+.
+  <?php
+  ini_set('display_errors', 0);
+  // canonicalタグ
+  define('CANONICAL',str_replace('//dev.', '//', (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]));
+
+  $tag1 = $tag2 = $tag3 = null;
+  $url=$_SERVER[HTTP_HOST];
+  $contents = file_get_contents("https://sfa.se-ec.co.jp/datagets/tag.php?url=$url");
+  $pattern = "/<tag>([.\s\S]*?)<\/tag>/";
+  $match_num = preg_match_all($pattern, $contents, $matches);
+  if( $match_num ) {
+      list($tag1,$tag2,$tag3) = $matches[1];
+  }
+  ?>

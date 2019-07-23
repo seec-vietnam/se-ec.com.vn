@@ -1,0 +1,59 @@
+block append footer
+    section#contact.cheo
+        .container
+            .title-main
+                h2.wow.fadeInDown(data-wow-delay="0.2s")
+                    | {{ language.contact }}
+            .wp-contact
+                .col-lg-7.p0.wow.zoomIn(data-wow-delay="0.4s")
+                    .form
+                        #errormessage
+                        form.contactForm(action='', method='post', role='form')
+                            .wp-form
+                                .form-group
+                                    input#name.form-control(type='text', name='name',  v-bind:placeholder="language.contact_p1", required='required', data-msg='Please enter at least 4 chars')
+                                .form-group
+                                    input#email.form-control(type='email', name='email', v-bind:placeholder="language.contact_p2", required='required', data-msg='Please enter a valid email')
+                                .form-group
+                                    input#subject.form-control(type='text', name='subject', v-bind:placeholder="language.contact_p3", required='required', data-msg='Please enter at least 8 chars of subject')
+                                .form-group
+                                    textarea.form-control(name='message', rows='5', required='required', data-msg='Please write something for us', v-bind:placeholder="language.contact_p4")
+                                .text-center
+                                    button(type='submit') {{ language.contact_p5 }}
+                .col-lg-5.p0.wow.zoomIn(data-wow-delay="0.4s")
+                    .contact-info
+                        h2
+                            | {{ language.contact_p6 }}
+                        ul
+                            li.company-name
+                                | SEEC Vietnam co., ltd
+                            li
+                                | 6th Floor, on 49 Hoang Van Thu, Ward 15, Phu Nhuan District, Ho Chi Minh City
+                            li
+                                | 028-3995-3895
+                            li
+                                | info@se-ec.com.vn
+
+        .map
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1595389182044!2d106.67676931452948!3d10.799090261728537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d7a8bff351%3A0xd38cf31099e4bc26!2zNDkgSG_DoG5nIFbEg24gVGjhu6UsIFBoxrDhu51uZyAxNSwgUGjDuiBOaHXhuq1uLCBI4buTIENow60gTWluaCwgVmlldG5hbQ!5e0!3m2!1sen!2s!4v1563507576587!5m2!1sen!2s" width="100%" height="410" frameborder="0" style="border:0" allowfullscreen></iframe>
+    section#footer
+        .info-copany
+            h1
+                | SEEC VIETNAM COMPANY LIMITED
+            p
+                | 6th Floor, on 49 Hoang Van Thu, Ward 15, Phu Nhuan District, Ho Chi Minh City
+            p
+                | TEL：028-3995-3895 | FAX：028-3995-3896
+        .social
+            a(href="")
+                img(src="img/facebook.png", alt="")
+            a(href="")
+                img(src="img/twitter.png", alt="")
+            a(href="")
+                img(src="img/linkedin.png", alt="")
+        .copy
+            p
+                | © Copyright SEEC . All Rights Reserved
+            p
+                | Designed by SEEC Việt Nam
+    section#particles
